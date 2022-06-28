@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec  3 11:09:11 2021
-
-@author: LocalAdmin
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colors
