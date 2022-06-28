@@ -1,0 +1,100 @@
+#Initialization
+clear; #clear all previously declared variables
+
+simtime=200; #simulation time in fs (autoshutoff level reached regardless)
+lambda_start=400; #wavelength start in nm
+lambda_stop=900; #wavelength stop in nm
+n_freq=1001; #number of points in the frequency spectrum
+ax=39.7; #semiaxis x in nanometers
+ay=19.8; #semiaxis y in nanometers
+az=19.8; #semiaxis z in nanometers
+switchtolayout; #switch to layout mode
+deleteall; #delete previously created objects
+
+
+#Nanoparticle setup
+addsphere;
+set('name','np');
+set('x',0);
+set('y',0);
+set('z',0);
+set('material','Au (Gold) - CRC');
+set('make ellipsoid',true);
+set('radius', ax*1e-9);
+set('radius 2', ay*1e-9);
+set('radius 3', az*1e-9);
+
+#Water
+addrect;
+set('name','water');
+set('x',0);
+set('y',0);
+set('z',0);
+set('x span', 1e-6);
+set('y span', 1e-6);
+set('z span', 1e-6);
+set('material','H2O (Water) - Palik');
+set('override mesh order from material database',true);
+set('mesh order',3);
+
+#Simulation region
+addfdtd;
+set('x',0);
+set('y',0);
+set('z',0);
+set('x span', 250*1e-9);
+set('y span', 250*1e-9);
+set('z span', 250*1e-9);
+set('simulation time',simtime*1e-15);
+set('x min bc',5); #simmetry rule
+set('y min bc',4); #simmetry rule
+
+#Uniform mesh inside the monitor region
+addmesh;
+set('dx',1e-9);
+set('dy',1e-9);
+set('dz',1e-9);
+set('x',0);
+set('y',0);
+set('z',0);
+set('x span', 200*1e-9);
+set('y span', 200*1e-9);
+set('z span', 200*1e-9);
+
+#Plane TFSF source
+addtfsf;
+set('x',0);
+set('y',0);
+set('z',0);
+set('x span', 175*1e-9);
+set('y span', 175*1e-9);
+set('z span', 175*1e-9);
+set('wavelength start',lambda_start*1e-9);
+set('wavelength stop',lambda_stop*1e-9);
+set('direction',2); #Forward direction
+set('eliminate discontinuities',true);
+set('optimize for short pulse',true);
+
+#Cross section monitors
+addobject("cross_section");
+set('name','abs');
+set('x',0);
+set('y',0);
+set('z',0);
+set('x span', 150*1e-9);
+set('y span', 150*1e-9);
+set('z span', 150*1e-9);
+
+addobject("cross_section");
+set('name','sca');
+set('x',0);
+set('y',0);
+set('z',0);
+set('x span', 190*1e-9);
+set('y span', 190*1e-9);
+set('z span', 190*1e-9);
+
+setglobalmonitor("frequency points",n_freq); #Set global monitors frequency points
+setglobalmonitor("use wavelength spacing",true);
+
+run; #Start the simulation
