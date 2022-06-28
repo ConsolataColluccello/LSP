@@ -1,16 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 23 17:56:30 2022
-
-@author: mlocarno
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
 from scipy.integrate import quad
 from scipy.optimize import curve_fit
 
-path_cs='M:/tnw/ist/do/projects/Neurophotonics/Brinkslab/People/Marco Locarno/PhD/Archive previous years/2021/FDTD nanoparticles/results/Cross sections/'
+path_cs='...'
 path_folder='Ellipsoid (1nm mesh size)/'
 
 font = {'family' : 'normal',
@@ -27,10 +21,6 @@ c=299792458 #Speed of light [m/s]
 vF=1.39e6   #Fermi velocity [m/s]
 i=1j
 
-em_inf=7.926
-gamma=3.8e13
-wp=1.23e16
-
 #CVD-friendly qualitatively color cycle
 OkabeIto=np.array([[0,0,0],
                    [0.9,0.6,0],
@@ -41,7 +31,7 @@ OkabeIto=np.array([[0,0,0],
                    [0.8,0.4,0],
                    [0.8,0.6,0.7]])
 
-def fit_dielectric(file='M:/tnw/ist/do/projects/Neurophotonics/Brinkslab/People/Marco Locarno/PhD/Archive previous years/2021/Plasmonics analytical/CRC_Au_dielectricconstants.txt'):
+def fit_dielectric(file='.../CRC_Au_dielectricconstants.txt'):
     A=np.loadtxt(file)
     w_data=A[:,0]
     e1=A[:,4]
@@ -334,8 +324,8 @@ def plot_cross_sections():
 
 
 if __name__=='__main__':
-    # global wp,gamma,em_inf
-    # wp,gamma,em_inf=fit_dielectric()
+    global wp,gamma,em_inf
+    wp,gamma,em_inf=fit_dielectric()
 
     plot_QSA()
     plot_surfscatter()
