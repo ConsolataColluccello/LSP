@@ -1,5 +1,5 @@
 # LSP
-The provided code is part of the Supplementary Material of the article "Analytical calculation of plasmonic resonances in metal nanoparticles: a simple guide" (Locarno et al., DOI: ...)
+The provided code is part of the Supplementary Material of the article "Analytical calculation of plasmonic resonances in metal nanoparticles: a simple guide" (... et al., DOI: ...)
 
 # File overview
 <i>field_enhancement.lsf</i> - Lumerical script to simulate the results of Fig. 5
